@@ -12,8 +12,6 @@ import com.example.kkchain.nanodegeree_project8_inventory_1_book.Data.BookContra
 
 public class BookDbHelper extends SQLiteOpenHelper {
 
-    public static final String LOG_TAG = BookDbHelper.class.getSimpleName();
-
     /** Name of the database file */
     private static final String DATABASE_NAME = "store.db";
 
@@ -37,7 +35,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
                 + BookEntry.COLUMN_BOOK_PRICE + " INTEGER NOT NULL,"
                 + BookEntry.COLUMN_BOOK_QUANTITY + " INTEGER NOT NULL DEFAULT 0,"
                 + BookEntry.COLUMN_BOOK_SUPPLIER_NAME + " TEXT NOT NULL,"
-                + BookEntry.COLUMN_BOOK_SUPPLIER_PHONE_NO + " INTEGER NOT NULL);";
+                + BookEntry.COLUMN_BOOK_SUPPLIER_PHONE_NO + " TEXT NOT NULL);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_BOOKS_TABLE);
