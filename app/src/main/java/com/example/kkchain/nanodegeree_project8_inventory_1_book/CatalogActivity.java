@@ -38,8 +38,35 @@ public class CatalogActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();;
+        super.onStart();
+        insertBook();
         displayDatabaseInfo();
+    }
+
+    /**
+     * Method to insert hardcoded data into database for debugging purposes
+     */
+    private void insertBook() {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object
+        ContentValues values = new ContentValues();
+        values.put(BookEntry.COLUMN_BOOK_NAME, "Back to the Future");
+        values.put(BookEntry.COLUMN_BOOK_PRICE, "25");
+        values.put(BookEntry.COLUMN_BOOK_QUANTITY, 3);
+        values.put(BookEntry.COLUMN_BOOK_SUPPLIER_NAME, "Motion Picture");
+        values.put(BookEntry.COLUMN_BOOK_SUPPLIER_PHONE_NO, "123-456-7890");
+
+        // insert a new row into the database
+        long newRowId = db.insert(BookEntry.TABLE_NAME, null, values);
+
+        // Toast message on the Book insert status to database
+        if (newRowId == -1) {
+            Toast.makeText(this, "Error when inserting the data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "New Book added with row id : " + newRowId, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**
@@ -68,7 +95,7 @@ public class CatalogActivity extends AppCompatActivity {
                 null);
 
         TextView displayView = (TextView) findViewById(R.id.text_view_book);
-        
+
 
         try {
             // Create a header in the TextView that looks like:
@@ -97,7 +124,7 @@ public class CatalogActivity extends AppCompatActivity {
             int currentBookPrice = cursor.getInt(bookPriceColumnIndex);
             int currentBookQuantity = cursor.getInt(bookQuantityColumnIndex);
             String currentBookSupplierName = cursor.getString(bookSupplierNameColumnIndex);
-            int currentBookSupplierPhoneNo = cursor.getInt(bookSupplierPhoneNoColumnIndex);
+            String currentBookSupplierPhoneNo = cursor.getString(bookSupplierPhoneNoColumnIndex);
 
             // Display the values from each column of the current from the cursor to TextView
             displayView.append(("\n" + currentID + " - "
@@ -112,7 +139,6 @@ public class CatalogActivity extends AppCompatActivity {
             // Close the cursor when done reading from it
             cursor.close();
         }
-
 
     }
 }

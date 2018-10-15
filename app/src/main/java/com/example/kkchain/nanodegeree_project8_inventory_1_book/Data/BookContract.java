@@ -48,7 +48,7 @@ public class BookContract {
 
         /**
          * Book Supplier Phone No
-         * Type: INTEGER
+         * Type: TEXT
          */
         public final static String COLUMN_BOOK_SUPPLIER_PHONE_NO = "book_supplier_phone_no";
 
